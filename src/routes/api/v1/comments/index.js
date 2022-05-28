@@ -23,4 +23,40 @@ routes.post("/", async (req, res) => {
   res.status(201).json(comment);
 });
 
+routes.put("/:id/upvote", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const comment = await prisma.comment.update({
+      where: { id },
+      data: {
+        upvoteCount: {
+          increment: 1,
+        },
+      },
+    });
+    res.json(comment);
+  } catch (error) {
+    res.json({ error: "Something went wrong" });
+  }
+});
+
+routes.put("/:id/downvote", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const comment = await prisma.comment.update({
+      where: { id },
+      data: {
+        upvoteCount: {
+          decrement: 1,
+        },
+      },
+    });
+    res.json(comment);
+  } catch (error) {
+    res.json({ error: "Something went wrong" });
+  }
+});
+
 export default routes;
