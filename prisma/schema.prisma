@@ -1,0 +1,31 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       String    @id @default(uuid())
+  name     String
+  email    String    @unique
+  comments Comment[]
+
+  @@map("users")
+}
+
+model Comment {
+  id          String   @id @default(uuid())
+  text        String
+  user        User     @relation(fields: [createdBy], references: [id])
+  createdBy   String   @map(name: "created_by")
+  createdAt   DateTime
+  upvoteCount Int      @default(0) @map("upvote_count")
+
+  @@map("comments")
+}
