@@ -1,7 +1,7 @@
-const express = require("express");
-const app = express();
+import express from "express";
+import v1Routes from "./routes/api/v1/index.js";
 
-const v1Routes = require("./routes/api/v1");
+const app = express();
 
 app.use("/api/v1", v1Routes);
 

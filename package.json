@@ -12,10 +12,11 @@
     "nodemon": "^2.0.16"
   },
   "scripts": {
-    "dev": "nodemon index.js",
-    "start": "node index.js",
+    "dev": "nodemon src/index.js",
+    "start": "node src/index.js",
     "db:migrate-dev": "yarn db:lint & npx prisma migrate dev",
     "db:lint": "npx prisma format",
     "db:studio": "npx prisma studio"
-  }
+  },
+  "type": "module"
 }
